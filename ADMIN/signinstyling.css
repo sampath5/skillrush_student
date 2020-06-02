@@ -1,0 +1,73 @@
+body{
+font-family: Arial, Helvetica, sans-serif;
+background-color:#f6f4f1;
+}
+.container{
+  width: 400px;
+  height:auto;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  text-align: left;
+  background-color:white;
+  border:2px solid white;
+  margin-top:150px;
+  margin-left:auto;
+  margin-right:auto;
+ 
+}
+#s2{
+font-size:18px;
+margin-left:10px;
+}
+
+
+input[type=text], input[type=password]
+{
+padding:8px;
+margin-left:8px;
+margin-top:5px;
+border:2px solid #e5e4e2;
+font-size:20px;
+outline:none;
+
+}
+#s1
+{
+
+margin-top:8px;
+margin-bottom:-10px;
+border-top:2px solid #e5e4e2;
+}
+
+
+b{
+margin-left:8px;
+}
+input:focus, select:focus{
+border:2px solid black;
+}
+#s3{
+margin-left:10px;
+text-decoration:none;
+}
+#s4{
+	margin-top:-50px;
+	margin-right:0px;
+}
+
+
+.signinbtn {
+  background-color: #4CAF50;
+  color: white;
+  padding: 16px 20px;
+  border: none;
+  cursor: pointer;
+  font-size:15px;
+  width: 110px;
+  opacity: 0.9;
+  margin-left:150px;
+  
+}
+
+.registerbtn:hover {
+  opacity: 1;
+}

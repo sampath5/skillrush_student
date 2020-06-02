@@ -1,0 +1,657 @@
+<html>
+<head>
+        
+        <link rel="stylesheet" type="text/css" href="stylingforadmin.css">
+        <link rel="stylesheet" type="text/css" href="stylingfortable.css">
+        <link rel="stylesheet" type="text/css" href="stylingforbuttons.css">
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+        <script src="https://kit.fontawesome.com/edfedfffe1.js" crossorigin="anonymous"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script> 
+		<link rel="stylesheet" type="text/css" href="cardstyle.css">
+        <script src="menu.js"></script>
+
+</head>
+<script>
+  function printresult(){
+    var excel=document.getElementById('table1').innerHTML;
+    alert(excel);
+    document.getElementById('texttype').value=excel;
+    document.getElementById('form').submit();
+
+  }
+function colorchange(id)
+            {
+                var k="td"+id;
+                var temp=1;
+                for(temp=1;temp<=4;temp++)
+                { 
+                    k[12]=temp;
+                    var n=k.replace(k[12],temp);
+                
+                document.getElementById(n).style.backgroundColor="white";
+                }
+                document.getElementById('td'+id).style.backgroundColor="green";
+
+            }
+
+  var selected=0;
+           function checkedBox(id){
+          
+            //alert(id);
+              checkbo=document.getElementById(id);
+               if(checkbo.checked==true){
+                selected=selected+1;
+               }else{
+                selected=selected-1;
+               }
+
+           }
+         
+                        
+            function selectAll()
+                {
+                   
+                      selectallcheckbox=document.getElementById("selectallbutton");  
+                    if(selectallcheckbox.checked==true)
+                    {   
+                        var sno=document.getElementsByName("select[]");
+                        for(var i=0;i<sno.length;i++)
+                        {
+                          
+                          if(sno[i].checked!=true){
+                            sno[i].checked=true;
+                            checkedBox(sno[i].id);
+                          }
+                        }   
+                                          
+                    }
+                    else
+                    {
+                        var sno=document.getElementsByName("select[]");
+                        for(var i=0;i<sno.length;i++)
+                        {
+                            
+                            sno[i].checked=false;
+                            checkedBox(sno[i].id);
+                        }  
+                    }
+                    i=0;
+                    
+                }
+                                            
+            
+        function students(){
+            xmlhttp=new XMLHttpRequest;
+            xmlhttp.onreadystatechange=function(){
+            if(this.readyState==4 && this.status==200){
+              document.getElementById('main-content').innerHTML=this.responseText;
+            }
+          };
+          xmlhttp.open("GET","students.php",true);
+          xmlhttp.send();
+        }
+                
+
+function examenable(sno){
+  var t='toggle'+sno
+  var changeto;
+ obj= document.getElementById(t);
+ if(obj.value==1)
+ {
+   changeto=0;
+   //obj.value=0;
+   //obj.checked;
+   
+ }
+ else{
+  changeto=1;
+  //obj.value=1;
+ }
+ //alert("checked"+obj.value);
+ var xmlhtpp=new XMLHttpRequest;
+ xmlhttp.onreadystatechange=function(){
+    if(this.readyState==4 && this.status==200){
+      obj.checked;
+      exams();
+    }
+    else if(this.readyState==4 && this.status==456){
+      alert("could not enable exam");
+    }
+  };
+  xmlhttp.open("GET","examenable.php?sno="+sno+"&changeto="+changeto,true);
+  xmlhttp.send();
+ 
+}
+           
+function sub_editquestions(){
+
+  question=document.getElementsByName("ques[]");
+  option1=document.getElementsByName("option1[]");
+  option2=document.getElementsByName("option2[]");
+  option3=document.getElementsByName("option3[]");
+  option4=document.getElementsByName("option4[]");
+  //correctoption=document.getElementsByName("correctoption[]");
+  serialno=document.getElementsByName("serialno[]");
+
+  var ques=[];
+  var op1=[],op2=[],op3=[],op4=[],co=[];
+  var sno=[];
+  j=0;
+  var err=0;
+  //alert();
+  for(var i=0;i<serialno.length;i++){
+      ques[j]=question[i].value;
+      op1[j]=option1[i].value;
+      op2[j]=option2[i].value;
+      op3[j]=option3[i].value;
+      op4[j]=option4[i].value;
+      sno[j]=serialno[i].value;
+      
+      name="correctoption"+sno[j];
+      correctoption=document.getElementsByName(name);
+
+      for(k=0;k<correctoption.length;k++){
+         if(correctoption[k].checked==true){
+          co[j]=correctoption[k].value;
+          
+          break;
+         }
+        } 
+        if(ques[j]=='' ){
+    alert( j+1+"No question is null ");err++;
+         } else if( op1[j]=='' ){
+    alert(j+1+"option1 is empty");err++;}
+  else if( op2[j]=='' ){
+  alert(j+1+"option2 is empty");err++;}
+  else if( op3[j]==''){
+  alert(j+1+"option3 is empty");err++;}
+  else if( op4[j]=='' ){
+  alert(j+1+"option4 is empty");err++;}
+  else if(co[j]==null){
+  alert("Choose correct option for"+j+1+"question");err++;}
+         j++;
+  } 
+  // alert(ques[0]);
+  // alert(op1[0]);
+  // alert(op2[0]);
+  // alert(op3[0]);
+  // alert(op4[0]);
+  // alert(sno[0]);
+  if(err==0){
+  xmlhttp=new XMLHttpRequest();
+  xmlhttp.onreadystatechange=function(){
+    if(this.readyState==4 && this.status==200){
+     questions();
+    }
+  };
+  xmlhttp.open("GET","editquestions.php?ques-update=true&ques="+ques+"&op1="+op1+"&op2="+op2+"&op3="+op3+"&op4="+op4+"&co="+co+"&sno="+sno,true);
+  xmlhttp.send();
+}
+
+
+}
+
+function sub_addquestion(){
+  var co=null;
+  var err=0;
+ question=document.getElementById("question").value;
+  option1=document.getElementById("option1").value;
+  option2=document.getElementById("option2").value;
+  option3 =document.getElementById("option3").value;
+  option4=document.getElementById("option4").value;
+  correctoption=document.getElementsByName("correctoption");
+  //alert();
+  for(i=0;i<correctoption.length;i++){
+    if(correctoption[i].checked==true){
+      co=correctoption[i].value;
+      break;
+    }
+  }
+  if(question=='' ){
+    alert("question is null");err++;}
+  else if( option1=='' ){
+    alert("option1 is empty");err++;}
+  else if( option2=='' ){
+  alert("option2 is empty");err++;}
+  else if( option3==''){
+  alert("option3 is empty");err++;}
+  else if( option4=='' ){
+  alert("option4 is empty");err++;}
+  else if(co==null){
+  alert("Choose correct option");err++;}
+  if(err==0){
+  xmlhttp=new XMLHttpRequest();
+  xmlhttp.onreadystatechange=function(){
+    if(this.readyState==4 && this.status==200){
+      
+      document.getElementById('main-content').innerHTML=this.responseText;
+      document.getElementById('span').innerHTML="SUCCESSFULLY ADDED QUESTION."
+
+    }
+    if(this.readyState==4 && this.status==444){
+      document.getElementById('span').innerHTML="Could not add question."
+    }
+  };
+   xmlhttp.open("GET","addquestions.php?addques=true&ques="+question+"&op1="+option1+"&op2="+option2+"&op3="+option3+"&op4="+option4+"&co="+co,true);
+   xmlhttp.send(); 
+}
+}
+
+function addquestion()
+{
+  
+  xmlhttp=new XMLHttpRequest();
+  xmlhttp.onreadystatechange=function(){
+     if(this.readyState==4 && this.status==200){
+       document.getElementById("main-content").innerHTML=this.responseText;
+     }
+   };
+   xmlhttp.open("GET","addquestions.php",true);
+   xmlhttp.send(); 
+}
+function editquestions()
+{
+  if(selected==0){
+    alert("Please select a Question.");
+  }
+  else{
+    
+    var sno=document.getElementsByName('select[]');
+    var sn=[],j=0;
+    
+    for(var i=0;i<sno.length;i++)
+    {
+      if(sno[i].checked==true)
+      {   
+        sn[j]=sno[i].value;
+        j++;
+      }
+    }
+    
+  xmlhttp=new XMLHttpRequest();
+  xmlhttp.onreadystatechange=function(){
+    if(this.readyState==4 && this.status==444){
+
+    }
+    if(this.readyState==4 && this.status==200){
+      document.getElementById("main-content").innerHTML=this.responseText;
+    }
+  };
+  xmlhttp.open("GET","editquestions.php?editques=true&select="+sn,true);
+  xmlhttp.send(); 
+  
+  }
+}
+function deletequestions()
+{
+  if(selected==0){
+    alert("Please select questions");
+  }
+  else{
+    if(confirm("Confirm to delete selected questions")){
+       
+    var sno=document.getElementsByName('select[]');
+    var sn=[],j=0;
+    
+    for(var i=0;i<sno.length;i++)
+    {
+      if(sno[i].checked==true)
+      {   
+        sn[j]=sno[i].value;
+        j++;
+      
+      }
+    }
+    
+    xmlhttp=new XMLHttpRequest();
+    xmlhttp.onreadystatechange=function(){
+      if(this.readyState==4 && this.status==200){
+        questions();
+      }
+      
+
+    };
+    xmlhttp.open("GET","deletequestions.php?deleteques=true&select="+sn,true);
+    xmlhttp.send();
+  }
+  else{
+    
+  }
+}
+}
+
+function seequestions(from){
+ if(from=='cancel')
+ {
+   exam_name=document.getElementById('btn-cancel').value;
+  
+ }
+ else{
+   
+  exam_name=document.getElementById('exam-name').value;}
+  
+  if(exam_name==''){
+    alert("Please enter exam name..");
+    questions();
+  }
+  else{
+    selected=0;
+    xmlhttp=new XMLHttpRequest();
+    xmlhttp.onreadystatechange=function(){
+      if(this.readyState==4 && this.status==200){
+        document.getElementById("main-content").innerHTML=this.responseText;
+        document.getElementById('editquestions').style='visibility:visible';
+        document.getElementById('deletequestions').style='visibility:visible';
+        document.getElementById('addquestions').style='visibility:visible';
+      }
+      else if(this.readyState==4 && this.status==405){
+        //alert("exam not found"); 
+        //document.getElementById("main-content").innerHTML=this.responseText;
+        document.getElementById("span").innerHTML="Exam is  Not found.Please check your exam name";
+      }
+    }
+    xmlhttp.open("GET","Questions.php?seeques=true&exam_name="+exam_name,true);
+    xmlhttp.send();
+  }    
+ 
+}   
+function questions(){
+   //document.getElementById('addquestions').style='visibility:hidden';
+   //document.getElementById('editquestions').style='visibility:hidden';
+   //document.getElementById('deletequestions').style='visibility:hidden';
+   selected=0;
+    xmlhttp=new XMLHttpRequest();
+    xmlhttp.onreadystatechange=function(){
+      if(this.readyState==4 && this.status==200){
+
+        document.getElementById("main-content").innerHTML=this.responseText; 
+      }
+    };
+    xmlhttp.open("GET","Questions.php",true);
+    xmlhttp.send();
+  }
+  /*
+    ******** E X A M S  P A G E ********
+  */
+
+    function getresult(obj){
+      
+      var value=document.getElementById(obj).value;
+      xmlhttp=new XMLHttpRequest();
+      xmlhttp.onreadystatechange=function(){
+        if(this.readyState==4 && this.status==200){
+          document.getElementById("row2").innerHTML=this.responseText;
+        }
+      };
+  xmlhttp.open("GET","evaluateresults.php?exam="+value,true);
+  xmlhttp.send();
+    }
+  function search_result(obj){
+    var value=document.getElementById(obj).value;
+      xmlhttp=new XMLHttpRequest();
+      xmlhttp.onreadystatechange=function(){
+        if(this.readyState==4 && this.status==200){
+          document.getElementById("l1").innerHTML=this.responseText;
+        }
+      };
+  xmlhttp.open("GET","results.php?search="+value,true);
+  xmlhttp.send();
+  }
+ function search_exam(obj){
+  
+  var value=document.getElementById(obj).value;
+  xmlhttp=new XMLHttpRequest();
+  xmlhttp.onreadystatechange=function(){
+    if(this.readyState==4 && this.status==200){
+      document.getElementById("l1").innerHTML=this.responseText;
+    }
+  };
+  xmlhttp.open("GET","Exams.php?search="+value,true);
+  xmlhttp.send();
+
+
+ }
+ function search_student(obj){
+  
+  var value=document.getElementById(obj).value;
+  xmlhttp=new XMLHttpRequest();
+  xmlhttp.onreadystatechange=function(){
+    if(this.readyState==4 && this.status==200){
+      document.getElementById("data").innerHTML=this.responseText;
+    }
+  };
+  xmlhttp.open("GET","students.php?search="+value,true);
+  xmlhttp.send();
+ }
+
+  function createexam(msg){
+              // document.getElementById('createexam').style='border:2px solid green;color:green;background-color:white';
+              document.getElementById('editexam').style='visibility:hidden';
+              document.getElementById('deleteexam').style='visibility:hidden';
+              document.getElementById('search').style='visibility:hidden';
+              document.getElementById('search_name').style='visibility:hidden';
+              xmlhttp=new XMLHttpRequest();
+              
+              xmlhttp.onreadystatechange=function(){
+                if(this.readyState==4 && this.status==200){
+                  document.getElementById("l1").innerHTML=msg+this.responseText;
+                }
+              };
+              xmlhttp.open("GET","createexam.php",true);
+              xmlhttp.send();
+            }
+            
+function exams(){
+  selected=0;
+  xmlhttp=new XMLHttpRequest();
+  xmlhttp.onreadystatechange=function(){
+    if(this.readyState==4 && this.status==200){
+      document.getElementById("main-content").innerHTML=this.responseText;
+    }
+  };
+  xmlhttp.open("GET","Exams.php",true);
+  xmlhttp.send();
+}
+function createExamsub(){
+  xmlhttp=new XMLHttpRequest();
+  
+  examname=document.getElementById("createExamName").value;
+  passpercentage=document.getElementById("createExamPasspercentage").value;
+  exam_duration=document.getElementById("createExamduration").value;   
+  xmlhttp.onreadystatechange=function(){
+    if(this.readyState==4 && this.status==422){
+      alert('Exam already Exist, Please try to add other exam....');
+      exams();
+    }if(this.readyState==4 && this.status==201){
+      exams();
+    }
+  };
+  xmlhttp.open("GET","createexam.php?submit=submit&exam_name="+examname+"&pass_percentage="+passpercentage+"&exam_duration="+exam_duration,true);
+  xmlhttp.send();
+}        
+function editExam(){
+  if(selected==0){
+                    alert('Please Select The Exam....');
+                }else{
+  var data=document.getElementById('form1').elements;
+  var sno=document.getElementsByName("select[]");
+  var sn=[];
+  j=0;
+  for(var i=0;i<sno.length;i++){
+    if(sno[i].checked==true){
+      sn[j]=sno[i].value;
+      j++;
+    }
+    } 
+    xmlhttp=new XMLHttpRequest();
+    xmlhttp.onreadystatechange=function(){
+      if(this.readyState==4 && this.status==422){
+        alert('Exam already Exist, Please try to add other exam....');
+      }if(this.readyState==4 && this.status==200){
+        document.getElementById("l1").innerHTML=this.responseText;
+      }
+    };
+    xmlhttp.open("GET","editexam.php?editexam=true&select="+sn,true);
+    xmlhttp.send();
+}}
+function examupdate(){
+  xmlhttp=new XMLHttpRequest();
+  examname=document.getElementsByName("examname[]");
+  passpercentage=document.getElementsByName("passpercentage[]");
+  examduration=document.getElementsByName("exam_duration[]");
+  serialno=document.getElementsByName("serialno[]");
+  var name=[];
+  var percentage=[];
+  var eduration=[];
+  var sno=[];
+  j=0;
+  for(var i=0;i<examname.length;i++){
+      name[j]=examname[i].value;
+      percentage[j]=passpercentage[i].value;
+      eduration[j]=examduration[i].value;
+      sno[j]=serialno[i].value;
+      j++;
+  } 
+  xmlhttp.onreadystatechange=function(){
+    if(this.readyState==4 && this.status==404){
+      alert('Exam already Exist, Please try to add other exam....');
+    }if(this.readyState==4 && this.status==201){
+      alert('Data Updatad Successfully!!!');
+      exams();
+    }
+  };
+  xmlhttp.open("GET","editexam.php?examupdation=true&examname="+name+"&passpercentage="+percentage+"&examduration="+eduration+"&sno="+sno,true);
+  xmlhttp.send();
+
+}
+
+          function deleteexam()
+            {   
+              // document.getElementById('deleteexam').style='border:2px solid green;color:green;background-color:white';
+                if(selected==0){
+                    alert('Please Select The Exam....');
+                }else{
+                var checkbox=document.getElementsByName("select[]");                
+                var checked=false;
+                if(confirm("do u really want to delete Exam ?")){
+                  sno=[];  
+                  j=0;
+                  for(var k=0;k<checkbox.length;k++)
+                  {
+                    if(checkbox[k].checked==true){
+                          checked=true;
+                          sno[j]=checkbox[k].value;
+                          j++;
+                          //  var value= document.getElementById("deleteexam").value='1';
+                          //   document.getElementById('form1').action="editexamdetails.php?deleteexam="+value ;
+                          //   document.getElementById('form1').submit() ;
+                        }
+                    }
+                    xmlhttp=new XMLHttpRequest();      
+                    xmlhttp.onreadystatechange=function(){
+                      if(this.readyState==4 && this.status==201){
+                        document.getElementById("l1").innerHTML='';
+                        //alert('Selected Exam Has Deleted Successfully');
+                        exams();
+                        // document.getElementById("l1").innerHTML=this.responseText;
+                      }
+                    };
+                    xmlhttp.open("GET","deleteexam.php?deleteexam=true&select="+sno,true);
+                    xmlhttp.send();
+                }
+                
+              }
+            }
+            // SHOWS ERROR IF OTHER PAGES ARE LOADED...
+            function activeexams(){
+              xmlhttp=new XMLHttpRequest;
+              xmlhttp.onreadystatechange=function(){
+                  if(this.readyState==4 && this.status==200){}
+                    document.getElementById('card2').innerHTML=this.responseText;
+              }
+              xmlhttp.open("GET","activeexams.php",true);
+              xmlhttp.send();
+            }
+            function students_registered(){
+              xmlhttp=new XMLHttpRequest;
+              xmlhttp.onreadystatechange=function(){
+                  if(this.readyState==4 && this.status==200){}
+                    document.getElementById('card1').innerHTML=this.responseText;
+              }
+              xmlhttp.open("GET","cardsdetails.php",true);
+              xmlhttp.send();
+            }
+
+            function results(){
+              xmlhttp=new XMLHttpRequest;
+              xmlhttp.onreadystatechange=function(){
+                  if(this.readyState==4 && this.status==200){
+                    document.getElementById('main-content').innerHTML=this.responseText;}
+              }
+              xmlhttp.open("GET","results.php",true);
+              xmlhttp.send();
+            }
+</script>
+<body onload="extended_menu(); students_registered(); activeexams()">
+    <div class="container">
+          <div class="header" style="background-color:white;">
+            <a  href="#">
+                  <img src="newvjitlogo.png" alt="VJIT" width="280px" height="65px" style="margin-left:8px;margin-top:16px;"></a>
+               <a href="#"  id="logout" style="text-decoration:none;float:right;">Log out
+        </a>
+          </div>
+          <div class="content" >
+              <div id="menu" >
+                <div id="menu1"  style="background-color:black;"></div>
+                <div id="menu2"  style="background-color:black;"></div>
+              </div>
+
+              <div  id="main-content"  >  
+                    <div class="row1" id="row1" style="background-color:black;">
+                        <h4 id="h1"><B>DASHBOARD</B></h4>
+                    </div>
+                    <div class="row2" id="row2" style="background-color:rgb(235, 229, 219);">
+                                                		  <h2></h2>
+
+                <div class="row" onload='students_registered()'>
+                  <div class="column">
+                    
+                    <div class="card" >
+                      <h3>No of students registered</h3>
+                  
+                      <p id='card1'></p>
+                      
+                    </div>
+                  </div>
+
+                  <div class="column">
+                    <div class="card" >
+                      <h3>No of Active exams</h3>
+                      
+                      <p id='card2'></p>
+                      
+                    </div>
+                  </div>
+  
+                  <div class="column">
+                    <div class="card" >
+                      <h3>Card 3</h3>
+                  
+                      <p id='card3'></p>
+                    </div>
+                  </div>
+  
+                    <div class="column">
+                      <div class="card">
+                        <h3>card4</h3>
+                        <p id='card4'></p>
+                      </div>
+                    </div>
+                  </div>
+                    </div>
+                </div>
+          </div>
+    </div>
+</body>
+</html>
