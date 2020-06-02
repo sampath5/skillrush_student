@@ -52,9 +52,7 @@
 	<p style="margin-left:10px;color:red;">
 	<?php
 	if(isset($_POST['btn'])){
-		
-
-		$con=mysqli_connect("localhost","root",'',"vjit");
+		include_once 'dbconnect.php';
 $name=$_POST['username'];
 $email=$_POST['email'];
 $rollno=$_POST['rollno'];
