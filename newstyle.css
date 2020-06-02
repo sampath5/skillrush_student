@@ -1,0 +1,105 @@
+@import "https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css";
+
+body{
+    height:100%;
+    overflow: hidden;
+    background: #ffe259;
+    background:var(--mango-gradient) ;
+}
+:root{
+    --primary-gradient: linear-gradient(to right, rgb(37, 53, 141), rgb(92, 63, 221));
+    --mango-gradient:linear-gradient(to right,#c3cccf,#c9dfe6);
+    --text-color: #f7f7f9;
+    --Montserrat: "Times new roman";
+    --primary-shadow: 3px 4px 7px rgba(27,27,27,0.534);
+    --border-color:rgba(0,0,0,0.329);
+}
+.container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 90%;
+    min-width: 1000px;
+    min-height: 560px;
+    max-height:560px;
+    
+}
+.container .panel{
+    width: 50%;
+    height: 65%;
+    background: #fff;  
+}
+.right{
+    display: grid;
+    grid-template-columns: 60% 30%;
+    height : 100%;
+    background: rgb(232, 238, 236);  
+}
+.left{
+    background: linear-gradient(to right,#1f8528,#31b12d);
+    border-top-right-radius: 50% 60%;
+    border-bottom-right-radius: 50% 60%;
+}
+.left h4{
+    text-align: left;
+    padding: 0 2rem;
+    color: whitesmoke;
+    font-family: var(--Montserrat);
+}
+.btn-login{  
+    border: none;
+    border-radius: 8px;
+    background: linear-gradient(to right,#26a341,#306b1e);
+    color: rgb(245, 245, 245);
+    font-size: .8rem;
+    box-shadow: var(--primary-shadow);
+    cursor: pointer;
+    width: 50%;
+    height: 14%;
+    margin: 1.5rem;
+    margin-left: 3.3rem;
+    
+}
+.btn-login:hover{
+    
+    background: #37750d;
+    color: whitesmoke;
+
+}
+.title{
+    margin-bottom: 2.2rem;
+}
+form{
+    height: 55%;
+    max-height: 280px;
+    margin-top: 5.5rem;
+}
+form h3{
+    font-family: var(--Montserrat);
+    padding: 0;
+    margin: 0;
+    padding-left: 3rem;
+}
+.form-group{
+    text-align: left; 
+    margin-top: .9rem;
+    margin-right: .7rem;
+    margin-left: .6rem;  
+}
+.form-input{
+    padding: .5rem 2.5rem;
+    background: transparent;
+    border: none;
+    outline: none;
+    font-family: var(--Montserrat);
+    overflow: hidden;
+    font-size: .9rem;
+    width: 80%;
+    border: 1px solid var(--border-color);
+    border-radius:3rem;
+}
+i{
+    width: 20px;
+		float: left;
+		text-align: center;   
+}
