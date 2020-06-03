@@ -61,9 +61,9 @@ $pass=$_POST['pswd'];
 $epass=md5($pass);
 $s="select * from students_list where `Roll No`='$rollno'";
 $sql="select * from students_list where Email='$email'";
-$mailresult=mysqli_query($con, $sql);
+$mailresult=mysqli_query($conn, $sql);
 $num2=mysqli_num_rows($mailresult);
-$result=mysqli_query($con, $s);
+$result=mysqli_query($conn, $s);
 $num=mysqli_num_rows($result);
 
 if($num2==1||$num==1){
@@ -79,7 +79,7 @@ echo"Registration Failed!! An account with this Email already exists!!";
 }
 else{
 $reg="insert into students_list(Name,Email,`RollNo`,Branch,Password) values('$name','$email','$rollno','$branch','$epass')";
-if(mysqli_query($con, $reg))
+if(mysqli_query($conn, $reg))
 	header('location:index.php');
 }
 	}
