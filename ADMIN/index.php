@@ -41,6 +41,8 @@ if(mysqli_query($conn, $query)){
 $n=mysqli_num_rows($data);
 $row=mysqli_fetch_assoc($data);
 
+	echo"$row['password']";
+	echo"..$n";
 if($n==1 && $password==$row['password']){
 $_SESSION['user_name']=$username;
 header('location:Home.php');
