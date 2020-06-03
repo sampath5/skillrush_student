@@ -1,5 +1,7 @@
 <?php
 session_start();
+if(!isset($_SESSION['roll_no']))
+    header('location:index.php');
 ?>
 <html>
 <head>
