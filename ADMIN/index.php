@@ -18,7 +18,7 @@ if(isset($_SESSION['user_name']))
 </div>
 <div class="container" style="margin-top: 14px;">
 <div><img src="skillrushn3.jpg" width="360px" height="80px" style="margin-top:0px;margin-left:20px;"></img></div>
-<p id="s1"></p>
+<p id="s1">ADMIN LOGIN</p>
  <form action="" method="post">
 
     <br><br><label  style="color:#410056;"for="username"><b>USER NAME</b></label><br>
