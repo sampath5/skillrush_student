@@ -46,9 +46,9 @@ $_SESSION['user_name']=$username;
 header('location:Home.php');
 }
 else
-echo " <p style='color:red;margin-left:18px;'> Login Failed!!</p>";}
+echo " <p style='color:red;margin-left:18px;'> Login Failed!</p>";}
 else
-echo "<p style='color:red;margin-left:18px;'>Login Failed!!</p>";
+echo "<p style='color:red;margin-left:18px;'>Login Failed!!!</p>";
 }
 ?>
 
