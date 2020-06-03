@@ -8,7 +8,7 @@ if(isset($_SESSION['user_name']))
 <head>
 
  <link rel="stylesheet" href="signinstyling.css">
- <script src="myjavascript.js"></script>
+
 </head>
 <body>
 <div style="background-color:#f6f4f1;">
@@ -41,8 +41,8 @@ if(mysqli_query($conn, $query)){
 $n=mysqli_num_rows($data);
 $row=mysqli_fetch_assoc($data);
 
-	echo"$row['password']";
-	echo"..$n";
+	echo $row['password'];
+	echo $n;
 if($n==1 && $password==$row['password']){
 $_SESSION['user_name']=$username;
 header('location:Home.php');
