@@ -3,13 +3,13 @@ session_start();
 if(!isset($_SESSION['roll_no']))
     header('location:index.php');
     else{
-        $con=mysqli_connect("localhost","root",'',"vjit");
+        include_once("dbconnect.php");
         $rollno=$_SESSION['roll_no'];
 
         $query="SELECT * FROM students_list WHERE `RollNo`='$rollno' ";
 
-if(mysqli_query($con, $query)){
-	$data=mysqli_query($con, $query);
+if(mysqli_query($conn, $query)){
+	$data=mysqli_query($conn, $query);
 $row=mysqli_fetch_assoc($data);
 $name=$row['Name'];
 $mail=$row['Email'];
@@ -83,12 +83,12 @@ function myFunction2() {
 <?php	
 if(isset($_POST['btn'])){
 
-$con=mysqli_connect("localhost","root",'',"vjit");  
+include_once('dbconnect.php');  
 $name1=$_POST['username'];
 $email1=$_POST['email'];
 
 $reg="update `students_list` set `Name`='$name1' , `Email`='$email1' where `students_list`.`RollNo`='$rollno'";
-if(mysqli_query($con, $reg)){
+if(mysqli_query($conn, $reg)){
     
    header('location:settings.php');
   }
