@@ -59,7 +59,7 @@ $rollno=$_POST['rollno'];
 $branch=$_POST['branch'];
 $pass=$_POST['pswd'];
 $epass=md5($pass);
-$s="select * from students_list where `Roll No`='$rollno'";
+$s="select * from students_list where `RollNo`='$rollno'";
 $sql="select * from students_list where Email='$email'";
 $mailresult=mysqli_query($conn, $sql);
 $num2=mysqli_num_rows($mailresult);
