@@ -6,7 +6,7 @@ $username = $url["user"];
 $password = $url["pass"];
 $db = substr($url["path"], 1);
 */
-$server = "skillrushdb1.cigyk57c3ye9.us-east-1.rds.amazonaws.com";
+$server = "database-1.crxqfck7ken2.ap-south-1.rds.amazonaws.com";
 $username = "admin";
 $password = "skillrush";
 $db = "vjit";
