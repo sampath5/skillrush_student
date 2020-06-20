@@ -113,11 +113,10 @@ function examenable(sno){
  xmlhttp.onreadystatechange=function(){
     if(this.readyState==4 && this.status==200){
       obj.checked;
+	    alert(this.responseText);
       exams();
     }
-    else if(this.readyState==4 && this.status==456){
-      alert("could not enable exam");
-    }
+    
   };
   xmlhttp.open("GET","examenable.php?sno="+sno+"&changeto="+changeto,true);
   xmlhttp.send();
