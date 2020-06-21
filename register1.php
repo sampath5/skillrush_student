@@ -80,7 +80,7 @@ echo"Registration Failed!! An account with this Email already exists!!";
 else{
 $reg="insert into students_list(Name,Email,`RollNo`,Branch,Password) values('$name','$email','$rollno','$branch','$epass')";
 if(mysqli_query($conn, $reg))
-	header('location:index.php');
+	header('location:Login');
 }
 	}
 
