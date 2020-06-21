@@ -1,0 +1,3 @@
+ReWriteEngine On
+ReWriteRule ^/index.php$ /Login 
+ReWriteRule ^/register1.php /Register 
