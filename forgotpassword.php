@@ -81,7 +81,7 @@ if(isset($_POST['submit']))
                 $output='Dear user,';
                 $output.='Please use the following link to reset your password.';
                 $output.='<br>-----------------';
-                $output.='<a href="http:localhost:80/mp/student/resetpassword.php?key='.$key.'&email='.$email.'&action=reset">Click here</a>'; 
+                $output.='<a href="https://skillrush.herokuapp.com/resetpassword.php?key='.$key.'&email='.$email.'&action=reset">Click here</a>'; 
                 $output.='-------------------<br>';
                 $output.='<br>Please be sure to copy the entire link into your browser.
                             The link will expire after 1 day for security reason.';
