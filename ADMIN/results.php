@@ -32,7 +32,7 @@ session_start();
                             }
                             else if(isset($_GET['search']) && $_GET['search']!=''){
                                     $search=$_GET['search'];
-                                    $searchquery="select exam_name,starttime from examconducted where concat(exam_name,starttime) like '%$search%'";
+                                    $searchquery="select exam_name,starttime from examconducted where endtime!='NULL'AND concat(exam_name,starttime) like '%$search%'";
                                     $queryresult=mysqli_query($conn,$searchquery);
                                     while($row=mysqli_fetch_assoc($queryresult)){
                                         $exam=$row['exam_name'];
