@@ -53,7 +53,7 @@ echo "<p style='color:red;margin-left:18px;'>Login Failed!!</p>";
 </a><br><br>
 
 <button type="submit" name="submit"  class="button1" style="margin-left:120px;"><b>SIGN IN</b></button>
-<p id="s2"><i>Don't have an account, then  <a style="text-decoration:none;color:#410056;"  href="register1.php"><b>SIGN UP</b></a></i></p>   
+<p id="s2"><i>Don't have an account, then  <a style="text-decoration:none;color:#410056;"  href="Register"><b>SIGN UP</b></a></i></p>   
 </form>
 </div> 
 
