@@ -1,3 +1,5 @@
 ReWriteEngine On
+RewriteCond %{HTTPS} !=on
+RewriteCond %{HTTP:X-Forwarded-Proto} !https
 ReWriteRule ^/index.php$ /Login 
 ReWriteRule ^/register1.php /Register 
