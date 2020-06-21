@@ -1,5 +1,10 @@
 <?php
 session_start();
+use PHPMailer\PHPMailer\PHPMailer;
+                use PHPMailer\PHPMailer\SMTP;
+                use PHPMailer\PHPMailer\Exception;
+
+                require_once "vendor/autoload.php";
 include_once 'dbconnect.php';
 //$conn=mysqli_connect('localhost','root','','vjit');
 ?>
@@ -44,6 +49,27 @@ if(isset($_POST['submit']))
 
             if($n==1 && $email==$row['Email']){
                 
+                
+   
+                $mail = new PHPMailer(true);
+
+                //Enable SMTP debugging.
+                $mail->SMTPDebug = 0;                               
+                //Set PHPMailer to use SMTP.
+                $mail->isSMTP();            
+                //Set SMTP host name                          
+                $mail->Host = "smtp.gmail.com";
+                //Set this to true if SMTP host requires authentication to send email
+                $mail->SMTPAuth = true;                          
+                //Provide username and password     
+                $mail->Username = "sampathch36@gmail.com";                 
+                $mail->Password = "72100100";                           
+                //If SMTP requires TLS encryption then set it
+                $mail->SMTPSecure = "tls";                           
+                //Set TCP port to connect to
+                $mail->Port = 587;     
+                $mail->From = "sampathch36@gmail.column";                              
+                $mail->FromName = "SKILLRUSH";
 
                 $expFormat = mktime(date("H"), date("i"), date("s"), date("m") ,date("d")+1, date("Y"));
                 $expDate = date("Y-m-d H:i:s",$expFormat);
@@ -54,23 +80,31 @@ if(isset($_POST['submit']))
                 mysqli_query($conn,"INSERT INTO `password_reset_temp` (`email`, `key`, `expDate`) VALUES ('$email', '$key', '$expDate');");
                 $output='Dear user,';
                 $output.='Please use the following link to reset your password.';
-                $output.='-------------------------------------------------------------';
-                $output.='http:localhost:80/mp/student/resetpassword.php?key='.$key.'&email='.$email.'&action=reset'; 
-                $output.='-------------------------------------------------------------';
-                $output.='Please be sure to copy the entire link into your browser.
+                $output.='<br>-----------------';
+                $output.='<a href="http:localhost:80/mp/student/resetpassword.php?key='.$key.'&email='.$email.'&action=reset">Click here</a>'; 
+                $output.='-------------------<br>';
+                $output.='<br>Please be sure to copy the entire link into your browser.
                             The link will expire after 1 day for security reason.';
-                $output.='If you did not request this forgotten password email, no action 
+                $output.='<br>If you did not request this forgotten password email, no action 
                             is needed, your password will not be reset. However, you may want to log into 
                             your account and change your security password .';   
                 $output.='Thanks,';
                 $output.='Skillrush vjit';
                 $body = $output; 
-                $subject='Password-Recovery  Skillrush VJIT';
+                //$subject='Password-Recovery  Skillrush VJIT';
                 $to=$email;
-                if(mail($to,$subject,$body))
-                    echo"An email has been sent to you with instructions on how to reset your password.";
-                else{
-                    echo"->Could not send mail..";
+                $mail->addAddress($to, "");
+
+                $mail->isHTML(true);
+
+                $mail->Subject ="Password-Recovery  Skillrush VJIT" ;
+                $mail->Body = $body;
+
+                try {
+                    if($mail->send())
+                        echo "Mail has been sent successfully";
+                } catch (Exception $e) {
+                    echo "Mailer Error: " . $mail->ErrorInfo;
                 }
 
         // header('location:shome.php');
